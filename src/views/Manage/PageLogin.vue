@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="bg-deep-purple pa-12" rounded>
+      <v-sheet class="bg-deep-purple pa-12" rounded>
     <v-card class="mx-auto px-6 py-8" max-width="344">
       <h1 class="text-center mb-8">Đăng nhập</h1>
       <v-form
@@ -53,7 +53,6 @@
     </v-card>
   </v-sheet>
 </template>
-
 <script>
   export default {
     data: () => ({

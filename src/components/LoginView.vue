@@ -1,6 +1,5 @@
 <template>
     <v-sheet class="bg-deep-purple pa-12" rounded>
-      <h1 class="text-center">Đăng nhập</h1>
       <v-card class="mx-auto px-6 py-8" max-width="344">
         <v-form
           v-model="form"
