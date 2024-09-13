@@ -18,42 +18,103 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-col cols="4" class="text-right p0 "><p>Xin chào: {{ NameLandlord }}</p></v-col>
+    <v-col cols="4" class="p0	">
+      <button @click="diglogProfile = !diglogProfile" class=" profile d-flex mt-8 mr-5">
+        <p>{{ NameLandlord }}</p>
+        <v-icon icon="mdi-menu-down"></v-icon>
+      </button>
+      <div v-show="diglogProfile" class="diglog_Profile">
+          <button class="d-flex">
+            <v-icon icon="mdi-account"></v-icon>
+            <span class="ml-2">Thông tin cá nhân</span>
+          </button>
+          <button class="d-flex mt-3">
+            <v-icon icon="mdi-key"></v-icon>
+            <span class="ml-2">Đổi mật khẩu</span>
+          </button>
+          <button class="d-flex mt-3">
+            <v-icon icon="mdi-exit-to-app"></v-icon>
+            <span class="ml-2">Đăng xuất</span>
+          </button>
+      </div>
+    </v-col>
   </v-row>
   <v-row class="m0">
     <v-col cols="2" class="menu">
-      <button @click="diglog = 0" class="menuitem">
-        <span>Trang chủ</span>
-      </button>
-      <button @click="diglog = 1" class="menuitem">
-        <v-icon icon="mdi-home" />
-        <span>Phòng</span>
-      </button>
-      <button class="menuitem">
-        <span>Dịch vụ</span>
-      </button>
-      <button class="menuitem">
-        <v-icon icon="mdi-flash"></v-icon>
-        <span>Số điện</span>
-      </button>
-      <button class="menuitem">
-        <v-icon icon="mdi-water"></v-icon>
-        <span>Số nước</span>
-      </button>
-      <button class="menuitem">
-        <span>Hợp đồng</span>
-      </button>
-      <button class="menuitem">
-        <v-icon icon="mdi-cash"></v-icon>
-        <span>Phát sinh</span>
-      </button>
-      <button class="menuitem">
-        <v-icon icon="mdi-chart-line"></v-icon>
-        <span>Báo cáo</span>
-      </button>
+      <div  >
+        <button 
+        @click="setActiveMenu(0)"  
+        class="menuitem"
+        :class="{'active-menu': activeMenu === 0}">
+          <span>Trang chủ</span>
+        </button>
+      </div>
+      <div >
+        <button 
+          @click="setActiveMenu(1)" 
+          :class="{'active-menu': activeMenu === 1}" 
+          class=" menuitem">
+          <v-icon icon="mdi-home" />
+          <span>Phòng</span>
+        </button>
+      </div>
+      <div>
+        <button 
+          @click="setActiveMenu(2)" 
+          :class="{'active-menu': activeMenu === 2}" 
+          class="menuitem">
+          <span>Dịch vụ</span>
+        </button>
+      </div>
+      <div>
+        <button 
+        @click="setActiveMenu(3)" 
+        :class="{'active-menu': activeMenu === 3}" 
+        class="menuitem">
+          <v-icon icon="mdi-flash"></v-icon>
+          <span>Số điện</span>
+        </button>
+      </div>
+      <div>
+        <button 
+          @click="setActiveMenu(4)" 
+          :class="{'active-menu': activeMenu === 4}" 
+          class="menuitem">
+          <v-icon icon="mdi-water"></v-icon>
+          <span>Số nước</span>
+        </button>
+      </div>
+      <div>
+        <button 
+          @click="setActiveMenu(5)" 
+          :class="{'active-menu': activeMenu === 5}" 
+          class="menuitem">
+          <span>Hợp đồng</span>
+        </button>
+      </div>
+      <div>
+        <button 
+          @click="setActiveMenu(6)" 
+          :class="{'active-menu': activeMenu === 6}" 
+          class="menuitem">
+          <v-icon icon="mdi-cash"></v-icon>
+          <span>Phát sinh</span>
+        </button>
+      </div>
+      <div>
+        <button 
+          @click="setActiveMenu(7)" 
+          :class="{'active-menu': activeMenu === 7}" 
+          class="menuitem">
+          <v-icon icon="mdi-chart-line"></v-icon>
+          <span>Báo cáo</span>
+        </button>
+      </div>
     </v-col>
-    <home-page-view v-show="diglog==0"></home-page-view>
-    <RoomView v-show="diglog==1"></RoomView>
+    <v-col cols="10">
+      <home-page-view v-show="Menu===0"></home-page-view>
+      <RoomView v-show="Menu===1"></RoomView>
+    </v-col>
   </v-row>
 </v-main>
 </template>
@@ -70,11 +131,16 @@ import RoomView from '@/components/RoomView.vue';
         ],
         selectTower:0,
         NameLandlord: 'Phạm Quang Hưng',
-        diglog: 0
+        activeMenu: null,
+        Menu:0,
+        diglogProfile: false
       }
     },
     methods: {
-
+      setActiveMenu(menuIndex) {
+      this.activeMenu = menuIndex;
+      this.Menu = menuIndex
+      }
     }
   }
 </script>
@@ -85,7 +151,7 @@ import RoomView from '@/components/RoomView.vue';
 .p0{
   padding: 0;
 }
-button{
+.menu button{
   width: 100%;
   text-align: left;
 }
@@ -98,13 +164,16 @@ button{
   height: 88vh;
   display: flex;
   flex-direction: column;
-  padding-left: 30px;
+
+}
+.menu div{
+  flex: 1;
 }
 .menu .menuitem{
+  padding-left:30px;
   display: flex;
   align-items: center;
-  font-size: 120%;
-  flex: 1;
+  font-size: 140%;
 }
 .menu .menuitem span{
   margin-left: 5px;
@@ -116,5 +185,24 @@ button{
 }
 .title-address{
   font-size: 130%;
+}
+.active-menu {
+  background-color: #fcb93c;
+  color: white;
+  border-radius: 20px;
+}
+.profile{
+  width: 100%;
+  justify-content: flex-end;
+  padding-right: 30px;
+}
+.diglog_Profile{
+  width: 40%;
+  border: 1px solid black;
+  background-color: aqua;
+  margin-left: 50%;
+  margin-top: 1%;
+  padding: 2%;
+  border-radius: 10px;
 }
 </style>
